@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "VTT DM Copilot",
+  "version": "0.1.0",
+  "description": "Chrome extension foundation for a D&D Beyond virtual tabletop with an AI Dungeon Master.",
+  "permissions": ["storage", "activeTab", "scripting"],
+  "host_permissions": [
+    "https://www.dndbeyond.com/*",
+    "https://*.dndbeyond.com/*"
+  ],
+  "background": {
+    "service_worker": "src/background/service-worker.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.dndbeyond.com/*",
+        "https://*.dndbeyond.com/*"
+      ],
+      "js": ["src/content/content.js"],
+      "css": ["src/ui/panel.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_title": "VTT DM Copilot"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["src/ui/panel.html"],
+      "matches": ["https://www.dndbeyond.com/*", "https://*.dndbeyond.com/*"]
+    }
+  ]
+}
