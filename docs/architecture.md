@@ -10,6 +10,7 @@
    - Detect active character, encounter, and campaign pages.
    - Normalize campaign metadata into a canonical state object.
    - Capture scene snapshots (map visibility + token hints) so the AI DM can narrate what the players currently see.
+   - Ingest visible dice/combat logs to keep turn-by-turn mechanical continuity.
 2. **Local campaign memory**
    - Maintain JSON-compatible records for campaign state, session log, maps, NPCs, and DM persona.
    - Version state updates so the AI can reason about continuity.
@@ -17,6 +18,7 @@
    - Build a prompt pipeline that combines player input, world state, and DM persona.
    - Return structured outputs: narration, encounter changes, quest updates, and persistence patches.
    - Feed the model recent player actions plus scene snapshots from extension memory for continuity.
+   - Generate creature rolls (initiative/attack/checks) when monsters are detected in the active scene.
 4. **VTT interactions**
    - Upload maps and portraits.
    - Track tokens, fog-of-war, notes, and initiative over time.
