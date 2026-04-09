@@ -1,4 +1,5 @@
 import {
+  appendSceneSnapshot,
   appendSessionEvent,
   defaultDmPersona,
   getState,
@@ -32,8 +33,17 @@ async function handleMessage(message) {
       return appendSessionEvent({
         type: 'player_action',
         summary: message.payload.summary,
-        rawInput: message.payload.rawInput
+        rawInput: message.payload.rawInput,
+        sceneHints: message.payload.sceneHints ?? null
       });
+    case 'SCENE_SNAPSHOT_RECORDED': {
+      await appendSessionEvent({
+        type: 'scene_snapshot',
+        summary: message.payload.summary,
+        sceneData: message.payload.sceneData
+      });
+      return appendSceneSnapshot(message.payload);
+    }
     case 'GET_EXTENSION_STATE':
       return getState();
     default:

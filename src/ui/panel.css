@@ -5,6 +5,8 @@
   z-index: 999999;
   width: 340px;
   max-width: calc(100vw - 48px);
+  max-height: calc(100vh - 48px);
+  overflow: auto;
   padding: 16px;
   border: 1px solid rgba(148, 163, 184, 0.35);
   border-radius: 16px;
@@ -25,6 +27,10 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
+}
+
+.vtt-dm-panel__section {
+  margin-top: 14px;
 }
 
 .vtt-dm-panel__eyebrow,
@@ -72,4 +78,17 @@
   padding: 10px 14px;
   font-weight: 700;
   cursor: pointer;
+}
+
+.vtt-dm-panel__memory {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.vtt-dm-panel__memory li span {
+  color: #94a3b8;
+  font-size: 11px;
 }

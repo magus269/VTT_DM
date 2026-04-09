@@ -3,7 +3,8 @@ export const STORAGE_KEYS = {
   dmPersona: 'dmPersona',
   maps: 'maps',
   npcPortraits: 'npcPortraits',
-  sessionLog: 'sessionLog'
+  sessionLog: 'sessionLog',
+  sceneSnapshots: 'sceneSnapshots'
 };
 
 export const defaultCampaignState = {
@@ -39,7 +40,8 @@ export async function getState() {
     dmPersona: stored.dmPersona ?? defaultDmPersona,
     maps: stored.maps ?? [],
     npcPortraits: stored.npcPortraits ?? [],
-    sessionLog: stored.sessionLog ?? []
+    sessionLog: stored.sessionLog ?? [],
+    sceneSnapshots: stored.sceneSnapshots ?? []
   };
 }
 
@@ -68,4 +70,19 @@ export async function appendSessionEvent(event) {
 
   await chrome.storage.local.set({ sessionLog: nextLog });
   return nextLog;
+}
+
+export async function appendSceneSnapshot(snapshot) {
+  const { sceneSnapshots } = await getState();
+  const nextSnapshots = [
+    ...sceneSnapshots,
+    {
+      id: crypto.randomUUID(),
+      timestamp: new Date().toISOString(),
+      ...snapshot
+    }
+  ];
+
+  await chrome.storage.local.set({ sceneSnapshots: nextSnapshots });
+  return nextSnapshots;
 }

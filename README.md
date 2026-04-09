@@ -12,17 +12,20 @@ This repository now contains the first implementation foundation:
 - a Manifest V3 Chrome extension scaffold;
 - a D&D Beyond content script that injects a prototype AI DM side panel;
 - a background service worker with local campaign/session storage helpers;
-- an architecture document that breaks the product into MVP milestones.
+- a session-memory feed that shows recently recorded player actions and scene snapshots;
+- scene capture hooks that inspect visible map/token elements so the DM context can include players/monsters;
+- input isolation to prevent keystrokes in the DM panel from leaking into D&D Beyond VTT controls.
 
 ## Repository structure
 
 ```text
-manifest.json                  Chrome extension entrypoint
-src/background/service-worker.js   background orchestration and message routing
-src/content/content.js             D&D Beyond page detection and panel injection
-src/lib/storage.js                local JSON-like campaign state helpers
-src/ui/panel.css                  prototype UI styling
-docs/architecture.md              product architecture and roadmap
+manifest.json                       Chrome extension entrypoint
+src/background/service-worker.js    background orchestration and message routing
+src/content/content.js              D&D Beyond page detection, scene capture, and panel injection
+src/lib/storage.js                  local JSON-like campaign state helpers
+src/ui/panel.css                    prototype UI styling
+src/ui/panel.html                   panel shell
+docs/architecture.md                product architecture and roadmap
 ```
 
 ## How to load the prototype in Chrome
@@ -32,6 +35,14 @@ docs/architecture.md              product architecture and roadmap
 3. Click **Load unpacked**.
 4. Select this repository folder.
 5. Visit a D&D Beyond page and look for the VTT DM Copilot panel in the top-right corner.
+
+## What works now
+
+- **Save turn note** records player actions and stores them in extension session memory.
+- **Capture current scene** scans the current page for map/token indicators and writes a scene snapshot.
+- **Recent memory** in the panel displays the latest entries so recording is visibly confirmed.
+
+> Note: D&D Beyond VTT internals are not publicly documented and may change. Scene capture currently uses resilient DOM heuristics that should be improved with dedicated adapters per page type.
 
 ## Near-term roadmap
 
